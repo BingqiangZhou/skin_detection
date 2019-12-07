@@ -1,10 +1,10 @@
 import torch
 from deeplabv3plus import DeepLabV3Plus
 
-class SkinDetectionModel(torch.nn.Module):
+class SkinDetectionNet(torch.nn.Module):
 
     def __init__(self):
-        super(SkinDetectionModel, self).__init__()
+        super(SkinDetectionNet, self).__init__()
 
         self.deeplabv3plus = DeepLabV3Plus(
             n_classes=1,

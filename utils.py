@@ -4,6 +4,7 @@
 # cannot write mode RGBA as JPEG: https://github.com/python-pillow/Pillow/issues/2609
 
 from PIL import Image
+import numpy as np
 import matplotlib.pyplot as plt
  
 
@@ -36,6 +37,17 @@ def combine_image_and_mask_from_numpy_array(image,mask,alpha=0.3):
     
     image = Image.blend(image,mask,alpha)
     return image
+
+def transform_image_to_binary_array(image, to_one_image):
+    
+    #  (253, 231, 36, 255)
+    array = np.zeros(image.shape[:2])
+    array[np.all(image[:,:]==to_one_image, axis=2)] = 1
+
+    return array
+
+
+
 
 # plt.imshow(image1)
 # plt.imshow(image2,alpha=0.5)
