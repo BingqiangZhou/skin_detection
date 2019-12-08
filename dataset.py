@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 from utils import *
 
+
 class SkinDetectionDataset(torch.utils.data.Dataset):
     def __init__(self, root_dir, train_or_val='train', transform=None):
         assert train_or_val in ['train', 'val'], "train_or_val must in ['train', 'val']"
@@ -38,16 +39,22 @@ class SkinDetectionDataset(torch.utils.data.Dataset):
         
         ground_truth = transform_image_to_binary_array(ground_truth, (253, 231, 36, 255))
 
+        image = image.transpose((2, 0, 1))
+
         return image, ground_truth
 
 if __name__ == '__main__':
     root_dir = r'.\dataset'
-    dataset_train = SkinDetectionDataset(root_dir,'train')
+    dataset_train = SkinDetectionDataset(root_dir,'val')
     data_loader_train = torch.utils.data.DataLoader(dataset_train, batch_size=1, shuffle=True)
     for i, data in enumerate(data_loader_train):
         image, ground_truth = data
         ground_truth = torch.squeeze(ground_truth, dim=0)
-        # print(ground_truth)
+        image = torch.squeeze(image, dim=0)
+        # plt.imshow(image)
+        print(ground_truth[200,100])
         plt.imshow(ground_truth)
+        print(image.shape)
+        print(ground_truth.shape)
         plt.show()
         break

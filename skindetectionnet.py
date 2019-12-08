@@ -17,5 +17,5 @@ class SkinDetectionNet(torch.nn.Module):
 
     def forward(self, input):
         output = self.deeplabv3plus(input)
-        # return torch.nn.functional.logsigmoid(output)
+        # output = torch.sigmoid(output)
         return output

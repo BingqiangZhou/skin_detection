@@ -46,6 +46,22 @@ def transform_image_to_binary_array(image, to_one_image):
 
     return array
 
+def calculate_iou(binary_image_1, binary_image_2):
+
+    assert binary_image_1.shape == binary_image_2.shape, "two image's size must be the same.{},{}".format(binary_image_1.shape, binary_image_2.shape)
+
+    temp = binary_image_1 + binary_image_2
+
+    intersection = np.zeros_like(binary_image_2)
+    union = np.zeros_like(binary_image_2)
+
+    intersection[temp >= 1] = 1
+    union[temp == 2] = 1
+    
+    iou = np.sum(union)/ np.sum(intersection)
+
+    return iou
+
 
 
 
