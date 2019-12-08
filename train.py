@@ -15,6 +15,8 @@ writer = SummaryWriter()
 root_dir = r'.\dataset'
 dataset_train = SkinDetectionDataset(root_dir, 'train')
 
+data_loader_train = torch.utils.data.DataLoader(dataset_train, batch_size=1, shuffle=True)
+
 # indices = torch.randperm(len(dataset)).tolist()
 # dataset_train = torch.utils.data.Subset(dataset, indices[:5])
 # dataset_test = torch.utils.data.Subset(dataset, indices[5:])
@@ -47,7 +49,6 @@ print("begin train: ", begin_time)
 # Starting train and validate.
 for epoch in range(num_epochs):
     # train process
-    data_loader_train = torch.utils.data.DataLoader(dataset_train, batch_size=1, shuffle=True)
     sum_loss = 0
     for i, data in enumerate(data_loader_train):
         optimizer.zero_grad()
